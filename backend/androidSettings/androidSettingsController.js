@@ -49,7 +49,8 @@ const removeImage = (file) => {
 };
 
 const createAndUpdateAndroid = async (req, res) => {
-  const { android_privacy_policy,
+  const {
+    android_privacy_policy,
     android_terms_conditions,
     android_app_share_link,
     android_default_page,
@@ -65,7 +66,7 @@ const createAndUpdateAndroid = async (req, res) => {
     description,
   } = req.body;
 
-   console.log(req?.file?.filename, "filename");
+  console.log(req?.file?.filename, "filename");
   const filename = req?.file?.filename || "";
 
   const android = await AndroidSetting.findOne();
@@ -187,26 +188,20 @@ const createAndUpdateAndroid = async (req, res) => {
   }
 };
 
-
-
-
-
-
-
 const getAndroidSettings = async (req, res) => {
   try {
     const androidSetting = await AndroidSetting.findOne();
 
     // let baseURL = "http://localhost:5050";
-    
+
     let baseURL = "http://localhost:8080";
     if (process.env.NODE_ENV === "PRODUCTION") {
-      baseURL = "https://sportsdashboard.onrender.com";
+      baseURL = "https://admin-panel-ubi4.onrender.com";
     }
 
     if (androidSetting) {
       const imageURL = `${baseURL}/androidSettingupload/${androidSetting.required_app.logo}`;
-      // console.log(imageURL);    
+      // console.log(imageURL);
       androidSetting.required_app.logo = imageURL;
       res.status(200).json({
         message: "Android setting found",
